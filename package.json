@@ -1,0 +1,31 @@
+{
+  "name": "slaer",
+  "version": "0.0.0",
+  "description": "SlaerJS: Kick Ass Client Application Framework",
+  "main": "src/slaer.js",
+  "scripts": {
+    "test": "mocha src/**/*.tests.js --reporter list"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/slaerjs/slaerjs"
+  },
+  "keywords": [
+    "router",
+    "view",
+    "template",
+    "client",
+    "app",
+    "framework"
+  ],
+  "author": "Gary Doublé <garydouble@live.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slaerjs/slaerjs/issues"
+  },
+  "homepage": "https://github.com/slaerjs/slaerjs",
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "2.5.3"
+  }
+}

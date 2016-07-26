@@ -1,1 +1,3 @@
-# slaerjs
+# SlaerJS: Kick Ass Client Application Framework
+
+### Coming Soon...
