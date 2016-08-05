@@ -2,9 +2,12 @@
   "name": "slaer",
   "version": "0.0.0",
   "description": "SlaerJS: Kick Ass Client Application Framework",
-  "main": "src/slaer.js",
+  "main": "dist/slaer.js",
   "scripts": {
-    "test": "mocha src/**/*.tests.js --reporter list"
+    "prebuild": "rimraf dist",
+    "build": "npm run build:dev && npm run build:prod",
+	"build:dev": "webpack --config conf/webpack.config.js",
+	"build:prod": "webpack --config conf/webpack.config.js --output-filename slaer.min.js -p"
   },
   "repository": {
     "type": "git",
@@ -25,7 +28,7 @@
   },
   "homepage": "https://github.com/slaerjs/slaerjs",
   "devDependencies": {
-    "chai": "3.5.0",
-    "mocha": "2.5.3"
+    "rimraf": "2.5.4",
+    "webpack": "1.13.1"
   }
 }
