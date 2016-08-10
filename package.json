@@ -7,7 +7,8 @@
     "prebuild": "rimraf dist",
     "build": "npm run build:dev && npm run build:prod",
 	"build:dev": "webpack --config conf/webpack.config.js",
-	"build:prod": "webpack --config conf/webpack.config.js --output-filename slaer.min.js -p"
+	"build:prod": "webpack --config conf/webpack.config.js --output-filename slaer.min.js -p",
+	"watch": "webpack --config conf/webpack.config.js --watch"
   },
   "repository": {
     "type": "git",

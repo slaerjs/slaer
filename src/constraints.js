@@ -18,7 +18,7 @@ slaer.constraint('int', function(value) {
     }
 });
 
-slaer.constraint('int', function(value) {
+slaer.constraint('float', function(value) {
     vaule = parseFloat(value);
     
     if (!isNaN(vaule)) {
@@ -26,3 +26,6 @@ slaer.constraint('int', function(value) {
     }
 });
 
+
+// Export the module.
+//module.exports = slaer.Constraint = Constraint;

@@ -88,7 +88,7 @@ Route.prototype.routes = function(cfg) {
 };
 
 
-// Executes the given path relative to this Routelication's path.
+// Executes the given path.
 Route.prototype.execute = function(path) {
 	var segments = Route.extractSegments(path);
 	
@@ -97,7 +97,7 @@ Route.prototype.execute = function(path) {
 	for (var s in segments) {
 		var segment = segments[s];
 		
-		console.log('segment:', segment);		
+		slaer.log('segment:', segment);		
 		
 		// search the possible values for a match
 		for (var r in route._children) {
@@ -117,15 +117,47 @@ Route.prototype.execute = function(path) {
 	}
 	
 	route.enter.apply(route, params);
+	
+	
+	
+	var links = document.body.getElementsByTagName("a");
+		
+	for (var i = 0; i < links.length; i++) {
+		
+		console.log(links[i].getAttribute('href'));
+	
+		links[i].addEventListener('click', function(evt) {
+			evt.preventDefault();
+			
+			console.log("clicked:", evt.target.getAttribute('href'));
+			
+			slaer.go(evt.target.getAttribute('href'));
+		});
+	}
 };
+
 
 
 // Navigates to the given path.
 Route.prototype.go = function(path) {
-	window.location = '#' + path;
+	var hash = '#' + path;
+	
+	if (window.location.hash === hash) {
+		this.execute(path);
+	}
+	
+	else if (window.location.hash !== '') {
+		window.location.hash = path;
+	}
+	
+	else {
+		window.location = hash;
+	}
 };
 
-Route.defaultPath = '/';
+
+// Export the module.
+module.exports = slaer.Route = Route;
 
 
 function delegate(obj, fn) {
@@ -135,50 +167,13 @@ function delegate(obj, fn) {
 
 slaer._router = new Route();
 
+// Configure the facade routing interface.
 slaer.init = delegate(slaer._router, slaer._router.init);
-
 slaer.on = delegate(slaer._router, slaer._router.on);
 slaer.enter = delegate(slaer._router, slaer._router.enter);
-
 slaer.off = delegate(slaer._router, slaer._router.off);
 slaer.exit = delegate(slaer._router, slaer._router.exit);
-
 slaer.route = delegate(slaer._router, slaer._router.route);
 slaer.routes = delegate(slaer._router, slaer._router.routes);
-
 slaer.go = delegate(slaer._router, slaer._router.go);
 slaer.execute = delegate(slaer._router, slaer._router.execute);
-
-
-// Check for a browser.
-if (typeof window !== 'undefined') {
-    window.addEventListener('hashchange', function() {		
-		if (window.location.hash === '#' || window.location.hash === '#/') {
-			if (Route.defaultPath && Route.defaultPath === '/') {
-				slaer._router.execute(Route.defaultPath);
-			} else {
-				slaer._router.go(Route.defaultPath);
-			}
-		} else {
-			slaer._router.execute(window.location.hash.substring(1));
-		}
-    });
-
-    window.addEventListener('load', function() {
-        if (!window.location.hash) {
-			if (window.location.pathname === '/') {
-				slaer._router.go(Route.defaultPath);
-			} else {
-				slaer._router.go(window.location.pathname);
-			}
-        } else {
-			if (window.location.hash === '#' || window.location.hash === '#/') {
-				slaer._router.go(Route.defaultPath);
-			} else {
-				slaer._router.execute(window.location.hash.substring(1));
-			}
-        }
-    });
-}
-
-

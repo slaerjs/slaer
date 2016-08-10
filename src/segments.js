@@ -45,7 +45,7 @@ Segment.extractParameters = function(segment) {
 };
 
 Segment.prototype.satisfies = function(segment, routeParams) {
-  console.log('satisfies?', segment);
+  slaer.log('satisfies?', segment);
   
   var match = this.pattern.exec(segment);
   
@@ -55,14 +55,14 @@ Segment.prototype.satisfies = function(segment, routeParams) {
   
   var params = regexMatchGroups(match);
   
-  console.log(params);
+  slaer.log(params);
   
   if (params.length !== this.params.length) {
     return false;
   }
   
   for (var i in params) {
-    console.log('checking', params[i], 'against', this.params[i]);
+    slaer.log('checking', params[i], 'against', this.params[i]);
     
     if (!this.params[i].constraint(params[i])) {
       return false;
@@ -77,6 +77,6 @@ Segment.prototype.satisfies = function(segment, routeParams) {
   return true;
 }
 
-
-// Export the module
+// Export the module.
 module.exports = slaer.Segment = Segment;
+
