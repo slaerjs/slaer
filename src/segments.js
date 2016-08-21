@@ -1,20 +1,4 @@
 
-function regexMatches(input, regex) {
-  var matches = [],
-      re = new RegExp(regex),
-      match;
-  
-  while (match = re.exec(input)) {
-    matches.push(match);
-  }
-  
-  return matches;
-}
-
-function regexMatchGroups(match) {
-  return Array.prototype.slice.call(match, 1);
-}
-
 
 function Segment(segment) {
   this.segment = segment;
@@ -25,7 +9,7 @@ function Segment(segment) {
 Segment.PARAMETER_EXTRACTION_PATTERN = /\{(\w+)(?:\:(\w+))?\}/g;
 
 Segment.extractParameters = function(segment) {
-  var matches = regexMatches(segment, Segment.PARAMETER_EXTRACTION_PATTERN);
+  var matches = slaer.regexMatches(segment, Segment.PARAMETER_EXTRACTION_PATTERN);
   
   var params = [];
   
@@ -53,7 +37,7 @@ Segment.prototype.satisfies = function(segment, routeParams) {
     return false;
   }
   
-  var params = regexMatchGroups(match);
+  var params = slaer.regexMatchGroups(match);
   
   slaer.log(params);
   

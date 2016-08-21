@@ -124,7 +124,7 @@ Route.prototype.execute = function(path) {
 		
 	for (var i = 0; i < links.length; i++) {
 		
-		console.log(links[i].getAttribute('href'));
+		console.log('href:', links[i].getAttribute('href'));
 	
 		links[i].addEventListener('click', function(evt) {
 			evt.preventDefault();
@@ -137,22 +137,23 @@ Route.prototype.execute = function(path) {
 };
 
 
-
 // Navigates to the given path.
 Route.prototype.go = function(path) {
+	console.log('go:', path);
+	
 	var hash = '#' + path;
 	
 	if (window.location.hash === hash) {
 		this.execute(path);
 	}
 	
-	else if (window.location.hash !== '') {
+	//else if (window.location.hash !== '') {
 		window.location.hash = path;
-	}
+	//}
 	
-	else {
-		window.location = hash;
-	}
+	//else {
+	//	window.location = hash;
+	//}
 };
 
 
@@ -160,20 +161,17 @@ Route.prototype.go = function(path) {
 module.exports = slaer.Route = Route;
 
 
-function delegate(obj, fn) {
-	return function() { return fn.apply(obj, Array.prototype.slice.call(arguments)); };
-}
+var router = slaer._router = new Route();
 
-
-slaer._router = new Route();
 
 // Configure the facade routing interface.
-slaer.init = delegate(slaer._router, slaer._router.init);
-slaer.on = delegate(slaer._router, slaer._router.on);
-slaer.enter = delegate(slaer._router, slaer._router.enter);
-slaer.off = delegate(slaer._router, slaer._router.off);
-slaer.exit = delegate(slaer._router, slaer._router.exit);
-slaer.route = delegate(slaer._router, slaer._router.route);
-slaer.routes = delegate(slaer._router, slaer._router.routes);
-slaer.go = delegate(slaer._router, slaer._router.go);
-slaer.execute = delegate(slaer._router, slaer._router.execute);
+slaer.init 		= slaer.delegate(router.init,    router);
+slaer.on 		= slaer.delegate(router.on,      router);
+slaer.enter 	= slaer.delegate(router.enter,   router);
+slaer.off 		= slaer.delegate(router.off,     router);
+slaer.exit 		= slaer.delegate(router.exit,    router);
+slaer.route 	= slaer.delegate(router.route,   router);
+slaer.routes 	= slaer.delegate(router.routes,  router);
+slaer.go 		= slaer.delegate(router.go,      router);
+slaer.execute 	= slaer.delegate(router.execute, router);
+

@@ -11,18 +11,18 @@ slaer.constraint('default', function(value) {
 });
 
 slaer.constraint('int', function(value) {
-    vaule = parseInt(value);
+    value = parseInt(value);
     
-    if (!isNaN(vaule)) {
-      return vaule;
+    if (!isNaN(value)) {
+      return value;
     }
 });
 
 slaer.constraint('float', function(value) {
-    vaule = parseFloat(value);
+    value = parseFloat(value);
     
-    if (!isNaN(vaule)) {
-      return vaule;
+    if (!isNaN(value)) {
+      return value;
     }
 });
 
